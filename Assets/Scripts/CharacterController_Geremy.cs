@@ -5,14 +5,16 @@ using UnityEngine;
 public class CharacterController_Geremy : MonoBehaviour
 {
     public float moveSpeed = 2;
-    public float jumpForce = 1;
+    public float jumpForce = 3;
 
     private Rigidbody2D rigidBd;
+    private Collider2D collider;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBd = GetComponent<Rigidbody2D>();
+        //collider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -25,12 +27,31 @@ public class CharacterController_Geremy : MonoBehaviour
         if (Input.GetButtonDown("Jump") && Mathf.Abs(rigidBd.velocity.y) < 0.01f)
         {
             rigidBd.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            Debug.Log("Jump button pressed");
         }
 
-        //Scalling debuging
-        /*
-        if(Input)
+        //Scalling demo
+        //*
+        if (Input.GetKeyDown(KeyCode.G) == true)
+        {
+            transform.localScale *= 2;
+            Debug.Log("Scaler button pressed");
+            
+            //*
+            if(transform.localScale.x > 8)
+            {
+                float d = transform.localScale.x / 2;
+                GetComponent<BoxCollider2D>().size = new Vector2(1f, 1f/d);
+            }
+            //*/
+        }
 
-        */
+        //*/
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Goal")
+            Debug.Log("Goal reached!");
     }
 }
