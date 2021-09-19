@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterController_Geremy : MonoBehaviour
 {
     public float moveSpeed = 2;
-    public float jumpForce = 3;
+    public float jumpForce = 10;
 
     private Rigidbody2D rigidBd;
     private Collider2D collider;
@@ -34,17 +34,10 @@ public class CharacterController_Geremy : MonoBehaviour
         //*
         if (Input.GetKeyDown(KeyCode.G) == true)
         {
-            transform.localScale *= 2;
-            Debug.Log("Scaler button pressed");
-            
-            //*
-            if(transform.localScale.x > 8)
-            {
-                float d = transform.localScale.x / 2;
-                GetComponent<BoxCollider2D>().size = new Vector2(1f, 1f/d);
-            }
-            //*/
+            scaleUp();
         }
+
+        //Debug.Log("Velocity.y = " + rigidBd.velocity.y);
 
         //*/
     }
@@ -53,5 +46,25 @@ public class CharacterController_Geremy : MonoBehaviour
     {
         if (collision.tag == "Goal")
             Debug.Log("Goal reached!");
+
+        else if (collision.tag == "PowerUp" )
+        {
+            //scaleUp();
+        }
+    }
+
+
+    public void scaleUp()
+    {
+        transform.localScale *= 2;
+        Debug.Log("Scaler PowerUp activated");
+
+        //*
+        if (transform.localScale.x > 8)
+        {
+            float d = transform.localScale.x / 2;
+            GetComponent<BoxCollider2D>().size = new Vector2(1f, 1f / d);
+        }
+        //*/
     }
 }
